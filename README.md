@@ -6,7 +6,7 @@ A small standalone FiveM script for sliding gates. Walk up to a supported gate, 
 
 Made by XanderP. If you need help or want to show what you built, come by our [Discord](https://discord.gg/cMqazwj6c7).
 
-<a href="https://buymeacoffee.com/xanderptv"><img src="assets/buy-me-a-coffee-banner.svg" alt="Support PushGate — buy me a coffee" width="740"></a>
+<a href="https://buymeacoffee.com/xanderptv"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60"></a>
 
 ## Install
 
