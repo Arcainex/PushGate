@@ -1,0 +1,302 @@
+/* push_gates ui - XanderP */
+
+/* The page itself MUST be see through. Without this you get a black box
+   behind everything, which is the whole screen sized to whatever the browser
+   feels like. Caught me out. */
+html, body {
+    background: transparent !important;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body { user-select: none; }
+.hidden { display: none !important; }
+
+/* -------------------------------------------------- hold E prompt */
+
+#prompt {
+    position: fixed;
+    left: 50%;
+    bottom: 8vh;              /* moved by --py from lua */
+    bottom: var(--py, 8vh);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 13px 7px 7px;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 3px;
+    border-left: 2px solid #c8a15a;
+}
+
+#promptKey {
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e6e6e6;
+    color: #151515;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+#promptText {
+    color: #ddd;
+    font-size: 13px;
+}
+
+#promptBar {
+    width: 70px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+#promptFill {
+    height: 100%;
+    width: 0;
+    background: #c8a15a;
+    transition: width 0.1s linear;
+}
+
+/* ------------------------------------------------------- the menu */
+
+#menu {
+    /* Positioned in px rather than centred with a transform, because a
+       transform and a drag fight each other: you cannot set left/top on
+       something that is also being shifted by -50%. JS puts it in the middle
+       once, on open. */
+    position: fixed;
+    top: 12vh;
+    left: 50%;
+    width: 420px;
+    height: 620px;
+    min-width: 320px;
+    min-height: 260px;
+    max-width: 96vw;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    background: rgba(18, 18, 18, 0.93);
+    border: 1px solid #2c2c2c;
+    color: #ddd;
+    resize: both;
+    overflow: hidden;
+}
+
+.menu__head {
+    cursor: move;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 13px 15px 11px;
+    border-bottom: 1px solid #2c2c2c;
+}
+
+.menu__title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #c8a15a;
+    letter-spacing: 0.5px;
+}
+
+.menu__sub {
+    font-size: 11px;
+    color: #777;
+    margin-top: 2px;
+}
+
+.menu__x {
+    color: #777;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+.menu__x:hover { color: #ddd; }
+
+.menu__body {
+    padding: 0 15px;
+    overflow-y: auto;
+}
+.menu__body::-webkit-scrollbar { width: 5px; }
+.menu__body::-webkit-scrollbar-thumb { background: #3a3a3a; }
+
+.grp { padding: 13px 0 14px; border-bottom: 1px solid #242424; }
+.grp:last-child { border: 0; }
+
+.grp__name {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+/* grab method buttons */
+.seg { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.seg button {
+    flex: 1 1 60px;
+    padding: 6px 4px;
+    font-size: 11px;
+    color: #aaa;
+    background: #222;
+    border: 1px solid #2e2e2e;
+    cursor: pointer;
+}
+.seg button:hover { background: #292929; color: #ddd; }
+.seg button.on {
+    background: #2a2317;
+    border-color: #c8a15a;
+    color: #e3c184;
+}
+.seg button.gone { color: #555; cursor: default; }
+.seg button.gone:hover { background: #222; color: #555; }
+
+.hint {
+    font-size: 10px;
+    color: #6d6d6d;
+    margin-top: 7px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 4px 0;
+    font-size: 12px;
+    color: #bbb;
+}
+.row span { flex: 1; }
+.row b {
+    width: 34px;
+    text-align: right;
+    font-size: 11px;
+    color: #c8a15a;
+    font-weight: normal;
+}
+.row input[type=range] { width: 140px; accent-color: #c8a15a; }
+.row--check { cursor: pointer; }
+.row--check input { accent-color: #c8a15a; }
+
+/* the gate youre next to */
+.gate__none { font-size: 11px; color: #6d6d6d; }
+
+.gate__name { font-size: 12px; color: #bbb; margin-bottom: 7px; }
+.gate__name b { color: #c8a15a; font-weight: normal; }
+
+.gate__acts { display: flex; flex-wrap: wrap; gap: 4px; }
+.gate__acts button {
+    padding: 5px 9px;
+    font-size: 11px;
+    color: #aaa;
+    background: #222;
+    border: 1px solid #2e2e2e;
+    cursor: pointer;
+}
+.gate__acts button:hover { background: #292929; color: #ddd; }
+
+#anim button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 5px 8px;
+    margin-bottom: 2px;
+    font-size: 11px;
+    color: #999;
+    background: #1e1e1e;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+#anim button:hover { background: #262626; color: #ddd; }
+#anim button.on { border-color: #c8a15a; color: #e3c184; }
+#anim button.gone { color: #555; text-decoration: line-through; }
+
+.menu__foot {
+    display: flex;
+    gap: 6px;
+    padding: 11px 15px;
+    border-top: 1px solid #2c2c2c;
+}
+
+.btn {
+    flex: 1;
+    padding: 8px;
+    font-size: 11px;
+    color: #151515;
+    background: #c8a15a;
+    border: 0;
+    cursor: pointer;
+}
+.btn:hover { background: #d4ae68; }
+
+.btn--ghost {
+    color: #aaa;
+    background: #222;
+    border: 1px solid #2e2e2e;
+}
+.btn--ghost:hover { background: #292929; color: #ddd; }
+
+.menu__by {
+    padding: 8px 15px 11px;
+    font-size: 10px;
+    color: #5f5f5f;
+    text-align: center;
+    border-top: 1px solid #242424;
+}
+.menu__by b { color: #888; font-weight: normal; }
+.lnk { color: #9c7f47; }
+
+
+/* -------------------------------------------------- window chrome */
+
+/* The browser's own resize grip only shows on an element with overflow, and
+   it is nearly invisible on a dark panel, so this draws a visible one in the
+   corner. The real resizing is still CSS resize:both underneath. */
+#menu::after {
+    content: "";
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    background:
+        linear-gradient(135deg, transparent 0 48%, #4a4a4a 48% 56%, transparent 56% 70%, #4a4a4a 70% 78%, transparent 78%);
+}
+
+.menu__head:active { cursor: grabbing; }
+
+/* dragging: kill text selection and pointer events inside so the drag does
+   not start selecting labels or hovering buttons halfway across the screen */
+body.dragging, body.dragging * { user-select: none !important; }
+body.dragging .menu__body { pointer-events: none; }
+
+/* -------------------------------------------------- animation tester */
+
+#anim button.gone {
+    color: #6a4a4a;
+    text-decoration: line-through;
+}
+#anim button .a-dict { color: #bbb; }
+#anim button .a-clip { color: #8e8e8e; }
+#anim button.on .a-dict, #anim button.on .a-clip { color: #e3c184; }
+.anim-note {
+    font-size: 10.5px;
+    color: #6d6d6d;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+.custom-anim { margin-top: 12px; border-top: 1px solid #303030; padding-top: 10px; }
+.custom-anim input { box-sizing: border-box; width: 100%; margin-bottom: 5px; padding: 7px; color: #ddd; background: #171717; border: 1px solid #383838; font-size: 11px; }
+.custom-anim button { width: 100%; padding: 7px; color: #171717; background: #c8a15a; border: 0; cursor: pointer; }
+.custom-anim #customAnimStatus { min-height: 16px; margin: 6px 0 0; }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- the little thing that says hold E -->
+    <div id="prompt" class="prompt hidden">
+        <div class="prompt__key" id="promptKey">E</div>
+        <div class="prompt__text" id="promptText">Push the gate</div>
+        <div class="prompt__bar hidden" id="promptBar">
+            <div class="prompt__fill" id="promptFill"></div>
+        </div>
+    </div>
+
+    <!-- /PushgateDebug -->
+    <div id="menu" class="menu hidden">
+        <div class="menu__head">
+            <div>
+                <div class="menu__title">PUSH GATES</div>
+                <div class="menu__sub">live config &middot; admin only</div>
+            </div>
+            <div class="menu__x" id="close">&times;</div>
+        </div>
+
+        <div class="menu__body">
+
+            <div class="grp">
+                <div class="grp__name">How you grab a gate</div>
+                <div class="seg" id="interact">
+                    <button data-v="hold">Hold key</button>
+                    <button data-v="ox">ox_target</button>
+                    <button data-v="qb">qb-target</button>
+                    <button data-v="bs19">BS19</button>
+                    <button data-v="auto">Auto</button>
+                </div>
+                <div class="hint" id="interactHint"></div>
+            </div>
+
+            <div class="grp">
+                <div class="grp__name">Feel</div>
+
+                <label class="row">
+                    <span>Push scale</span>
+                    <input type="range" id="pushScale" min="0.2" max="1.5" step="0.05" />
+                    <b id="pushScaleV">0.85</b>
+                </label>
+
+                <label class="row">
+                    <span>Grab distance</span>
+                    <input type="range" id="grabDistance" min="1" max="5" step="0.1" />
+                    <b id="grabDistanceV">2.4</b>
+                </label>
+
+                <label class="row row--check">
+                    <span>Face the gate while pushing</span>
+                    <input type="checkbox" id="faceGate" />
+                </label>
+            </div>
+
+            <div class="grp">
+                <div class="grp__name">Prompt</div>
+                <label class="row">
+                    <span>Height off the bottom</span>
+                    <input type="range" id="promptY" min="2" max="40" step="1" />
+                    <b id="promptYV">8</b>
+                </label>
+            </div>
+
+            <div class="grp">
+                <div class="grp__name">The gate you're stood next to</div>
+                <div class="gate" id="gate">
+                    <div class="gate__none">Walk up to a gate to edit it</div>
+                </div>
+            </div>
+
+            <div class="grp">
+                <div class="grp__name">Animation</div>
+                <div class="anim" id="anim"></div>
+                <div class="custom-anim">
+                    <div class="anim-note">Got another GTA animation? Paste its dictionary and clip here to try it.</div>
+                    <input id="customDict" type="text" maxlength="120" placeholder="Animation dictionary" autocomplete="off" />
+                    <input id="customClip" type="text" maxlength="120" placeholder="Clip name" autocomplete="off" />
+                    <button id="customAnim" type="button">Try animation</button>
+                    <div id="customAnimStatus" class="anim-note" role="status"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="menu__foot">
+            <button class="btn btn--ghost" id="dump">Print config to console</button>
+            <button class="btn" id="apply">Apply to everyone</button>
+        </div>
+
+        <div class="menu__by">
+            push_gates by <b>XanderP</b>
+            &middot; <span class="lnk">discord.gg/cMqazwj6c7</span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
