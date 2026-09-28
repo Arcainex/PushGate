@@ -1,8 +1,14 @@
+![PushGate — sliding gates for FiveM](assets/pushgate-github-banner.png)
+
 # PushGate
 
 A small standalone FiveM script for sliding gates. Walk up to a supported gate, hold **E**, and move along the rail to push or pull it. Let go and it stays there until somebody moves it again. No framework or database needed.
 
-Made by XanderP. If you need help or want to show what you built, come by our [Discord](https://discord.gg/cMqazwj6c7). If the script helped your server, you can [buy me a coffee](https://buymeacoffee.com/xanderptv).
+Made by XanderP. If you need help or want to show what you built, come by our [Discord](https://discord.gg/cMqazwj6c7).
+
+<a href="https://buymeacoffee.com/xanderptv"><img src="assets/buy-me-a-coffee-banner.svg" alt="Support PushGate — buy me a coffee" width="740"></a>
+
+The [FiveM release artwork](assets/pushgate-fivem-post.png) is here too if you'd like to share it.
 
 ## Install
 

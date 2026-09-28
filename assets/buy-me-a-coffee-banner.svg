@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 116" role="img" aria-labelledby="title desc">
+  <title id="title">Buy me a coffee</title>
+  <desc id="desc">Support PushGate by buying XanderP a coffee</desc>
+  <rect width="740" height="116" rx="15" fill="#1a1a1a"/>
+  <rect x="1" y="1" width="738" height="114" rx="14" fill="none" stroke="#b68c40" stroke-width="2"/>
+  <rect x="18" y="18" width="80" height="80" rx="13" fill="#ffdd68"/>
+  <path d="M40 43h31v22c0 9-7 16-16 16s-15-7-15-16V43zm31 5h7a9 9 0 0 1 0 18h-7M35 85h43" fill="none" stroke="#282015" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M47 36c-3-4 3-7 0-11m15 11c-3-4 3-7 0-11" fill="none" stroke="#282015" stroke-width="3" stroke-linecap="round"/>
+  <text x="119" y="46" fill="#d8b56b" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="2">SUPPORT PUSHGATE</text>
+  <text x="118" y="82" fill="#ffffff" font-family="Arial, sans-serif" font-size="31" font-weight="700">Buy me a coffee</text>
+  <path d="M677 58h24m-10-10 10 10-10 10" fill="none" stroke="#ffdd68" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
